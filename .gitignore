@@ -1,4 +1,8 @@
 /node_modules
+/client/node_modules
+#client
+/client/build
+
 # misc
 .DS_Store
 .env.local
@@ -15,8 +19,7 @@ yarn-error.log*
 
 # production
 /build
-/client/build
-/client/node_modules
+
 /.pnp
 .pnp.js
 .env
