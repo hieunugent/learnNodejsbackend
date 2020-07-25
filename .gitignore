@@ -18,6 +18,6 @@ yarn-error.log*
 /.pnp
 .pnp.js
 .env
- /client/node_modules
+
  
 
