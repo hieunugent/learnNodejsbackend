@@ -3,23 +3,40 @@ const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require("mongoose");
-const PORT = 4000;
+
 const todoRoutes = require('./routes/todo')
+var corsOptions = {
+  origin: "http://localhost:8081"
+};
+ 
 
 
 
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
-mongoose.connect("mongodb://127.0.0.1:27017/todos", { useUnifiedTopology: true ,useNewUrlParser: true });
-const connection = mongoose.connection;
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-connection.once("open", function () {
-  console.log("MongoDB database connection established successfully");
-});
 
+const db = require("./models/index");
+db.mongoose
+  .connect(process.env.MONGODB_URI || db.url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("Connected to the database!");
+  })
+  .catch((err) => {
+    console.log("Cannot connect to the database!", err);
+    process.exit();
+  });
+const PORT = process.env.PORT || 8081;
 
 app.use("/todos", todoRoutes);
+require("./routes/issue.routers")(app);
+require("./routes/project.routers")(app);
 
 app.listen(PORT, function () {
   console.log("Server is running on Port: " + PORT);
