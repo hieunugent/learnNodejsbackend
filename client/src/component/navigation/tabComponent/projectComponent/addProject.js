@@ -1,16 +1,53 @@
 import React, { useState, useEffect } from "react";
-import { TextField, Button } from "@material-ui/core";
+import { TextField, Button, Paper, makeStyles } from "@material-ui/core";
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import "./projectpage.css";
 import ProjectDataService from "../../../../services/projectService";
 
+const useStyles = makeStyles((theme) => ({
+    button:{
+      margin:theme.spacing(1),
+    },
+    paper:{
+        width:"60%",
+        marginLeft:"20%",
+        marginRight:"20%",
 
+    },
+    controllbtn:{
+        right:"2rem",
+        width:"40%",
+        marginLeft:"60%",
+       
+    }
+}));
 const ProjectFrom =(props) => {
+    const classes = useStyles();
     return (
+      <Paper className={classes.paper}>
         <div className="leftaligning">
-            <h2> {props.nameProject}</h2>
-            <h3> {props.DescriptionProject } </h3>
+          <h2> {props.nameProject}</h2>
+          <h3> {props.DescriptionProject} </h3>
         </div>
+        <div className={classes.controllbtn}>
+          <Button
+            className={classes.button}
+            variant="contained"
+            color="primary"
+          >
+            {" "}
+            Update
+          </Button>
+          <Button
+            className={classes.button}
+            variant="outlined"
+            color="secondary"
+          >
+            {" "}
+            Delete
+          </Button>
+        </div>
+      </Paper>
     );
 }
 
