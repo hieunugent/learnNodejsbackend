@@ -5,12 +5,6 @@ module.exports = (app) => {
     router.post("/", projects.create);
     // Retrieve all project
     router.get("/", projects.findAll);
-
-
-
-
-
-
     app.use("/api/projects", router);
 
 }

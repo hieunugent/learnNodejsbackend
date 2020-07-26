@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TextField, Button } from "@material-ui/core";
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import "./projectpage.css";
@@ -17,7 +17,10 @@ const ProjectFrom =(props) => {
 export default function Project() {
    
     const [listProject, setListProject] = useState([]);
- 
+       
+    useEffect(() => {
+      retrieveProject();
+    }, []);
     const handleNewProject =(event)=> {
 
             const {name, value} = event.target;
@@ -65,6 +68,19 @@ export default function Project() {
     const [projectFormInfo, setProjectInfo] = useState(
         initialProject
     );
+
+      const retrieveProject = () => {
+        ProjectDataService.getAll()
+          .then((response) => {
+            setListProject(response.data);
+            console.log(response.data);
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      }; 
+
+
     return (
         <div className="">
             <h1> Project Start</h1>
@@ -107,7 +123,7 @@ export default function Project() {
              </div>
                     
             <div>
-              <h1> Show All project </h1>
+              <h1> Show All project that you have</h1>
 
               {listProject.map((list, index) => {
                 return(

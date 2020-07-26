@@ -30,14 +30,14 @@ exports.findAll = (req, res) => {
         ? { nameProject: { $regex: new RegExp(nameProject), $options: "i" } }
         : {};
 
-    Issue.find(condition)
-        .then((data) => {
-            res.send(data);
-        })
-        .catch((err) => {
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while retrieving Project.",
-            });
+    Project.find(condition)
+      .then((data) => {
+        res.send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while retrieving Project.",
         });
+      });
 }
