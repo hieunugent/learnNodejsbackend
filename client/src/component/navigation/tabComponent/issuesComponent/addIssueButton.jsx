@@ -3,6 +3,7 @@ import { Button, makeStyles, TextField, FormControl, Select, Input, MenuItem, us
 import AddIcon from '@material-ui/icons/Add';
 import "./issues.css";
 import IssueDataService from "../../../../services/IssueService";
+import ProjectDataService from "../../../../services/projectService";
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -66,7 +67,28 @@ const IssueForm = (props) => {
 }
 
  const  AddIssueButton = (props)=>{
-    const names = ['project 1', 'project 2', 'project 3', 'project 4', 'project 5', 'project 6', 'new project 7',];
+   const [namess, setproject]= useState([]);
+ 
+  //  useEffect(() => {
+    
+  //  }, []);
+   const retrieveProject = () => {
+     ProjectDataService.getAll()
+       .then((response) => {
+         setproject(response.data);
+        //  console.log(response.data.nameProject);
+      
+         console.log(response.data);
+       })
+       .catch((e) => {
+         console.log(e);
+       });
+   }; 
+
+
+   
+
+   const names = ['project 1', 'project 2', 'project 3', 'project 4', 'project 5', 'project 6', 'new project 7',];
     const classes = useStyles();
     const [projectName, setProjectName] = useState([]);
     const [openissueform, setissueOpen] = useState('none');
@@ -81,6 +103,7 @@ const IssueForm = (props) => {
    
     useEffect(()=> {
       retrieveIssues();
+      retrieveProject();
     }, []);
 
     const initialIssue = {

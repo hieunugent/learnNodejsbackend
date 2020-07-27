@@ -92,12 +92,15 @@ export default function MainMenu(){
  // eslint-disable-next-line react-hooks/rules-of-hooks
  const classes = useStyles();
  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+ const handleclick=()=> {
+   console.log("is clickd");
+ }
 return (
     <Container maxWidth="lg" className={classes.container}>
       <Grid container spacing={3}>
         {/* Chart */}
         <Grid item xs={12} md={4} lg={4}>
-          <Paper className={fixedHeightPaper}>Project:You track</Paper>
+          <Paper className={fixedHeightPaper}  onClick={handleclick}>Project:You track</Paper>
         </Grid>
         {/* Recent Deposits */}
       <Grid item xs={12} md={4} lg={3}>
