@@ -51,9 +51,9 @@ const ProjectFrom =(props) => {
     );
 }
 
-export default function Project() {
+export default function Project(props) {
    
-    const [listProject, setListProject] = useState([]);
+    // const [listProject, setListProject] = useState([]);
        
     useEffect(() => {
       retrieveProject();
@@ -68,7 +68,7 @@ export default function Project() {
 
     };
     const addListProject = (newProject)=> {
-        setListProject(preList => {
+        props.setListProject(preList => {
             return [...preList, newProject];
         });
     };
@@ -109,7 +109,7 @@ export default function Project() {
       const retrieveProject = () => {
         ProjectDataService.getAll()
           .then((response) => {
-            setListProject(response.data);
+            props.setListProject(response.data);
             console.log(response.data);
           })
           .catch((e) => {
@@ -162,7 +162,7 @@ export default function Project() {
             <div>
               <h1> Show All project that you have</h1>
 
-              {listProject.map((list, index) => {
+              {props.listProject.map((list, index) => {
                 return(
                     <div key={`${index}-${list.nameProject}`}>
                         <ProjectFrom

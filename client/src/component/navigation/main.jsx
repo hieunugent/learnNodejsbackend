@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -16,7 +16,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import AppBar from '@material-ui/core/AppBar';
 import List from '@material-ui/core/List';
 import clsx from 'clsx';
-import AddIssueButton from './tabComponent/issuesComponent/addIssueButton';
+import Issue from './tabComponent/issuesComponent/addIssueButton';
 import Login from './tabComponent/authentication/login';
 import Register from './tabComponent/authentication/registration';
 import LoginMenuItems from './tabComponent/authentication/loginButton';
@@ -80,6 +80,22 @@ const useStyles = makeStyles((theme)=> ({
 }));
 export default function Main() {
   const classes = useStyles();
+  const [listProject, setListProject] = useState([]);
+   const [names, setproject]= useState([]);
+
+   const addListNameProject = (newProject)=> {
+     setproject(prevList => {
+       return [...prevList, newProject];
+     });
+   };
+  listProject.forEach(element => {
+    let current =element.nameProject;
+    if(!names.includes(current)){
+      addListNameProject(element.nameProject);
+    }
+   
+  })
+
   const [open , setOpen] = React.useState(false);
   const handleDrawerOpen =()=> {
     setOpen(true);
@@ -152,8 +168,17 @@ export default function Main() {
 
           <Switch>
               <Route exact path="/dashboard"><Dashboard /></Route>
-              <Route exact path="/projects"   component={Project}></Route>
-              <Route exact path="/issues"     component={AddIssueButton}></Route>
+              <Route exact path="/projects"   >
+              <Project 
+                listProject={listProject}
+                setListProject={setListProject}
+            
+              /></Route>
+              <Route exact path="/issues">
+                <Issue
+                    names={names}
+                />
+              </Route>
               <Route exact path="/logins"                       > <Login/></Route>
               <Route exact path="/registrations"><Register /></Route>
               <Route exact path="/doc"> Documents </Route>

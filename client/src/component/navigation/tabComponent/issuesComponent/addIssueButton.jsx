@@ -67,28 +67,44 @@ const IssueForm = (props) => {
 }
 
  const  AddIssueButton = (props)=>{
-   const [namess, setproject]= useState([]);
- 
+  // const [namess, setproject]= useState([]);
+
+  //  const addListNameProject = (newProject)=> {
+  //    setproject(prevList => {
+  //      return [prevList, newProject];
+  //    });
+  //  };
+  //  useEffect(() => {
+  //    //retrieveIssues();
+  //    retrieveProject();
+  //  }, []);
+  //  const retrieveProject = ()=> {
+  //    props.listProject.forEach(element => {
+  //      addListNameProject(element.nameProject)
+  //    });
+  //  }
+  
+  //  console.log(namess);
   //  useEffect(() => {
     
   //  }, []);
-   const retrieveProject = () => {
-     ProjectDataService.getAll()
-       .then((response) => {
-         setproject(response.data);
-        //  console.log(response.data.nameProject);
+  //  const retrieveProject = () => {
+  //    ProjectDataService.getAll()
+  //      .then((response) => {
+  //        setproject(response.data);
+  //       //  console.log(response.data.nameProject);
       
-         console.log(response.data);
-       })
-       .catch((e) => {
-         console.log(e);
-       });
-   }; 
+  //        console.log(response.data);
+  //      })
+  //      .catch((e) => {
+  //        console.log(e);
+  //      });
+  //  }; 
 
 
-   
 
-   const names = ['project 1', 'project 2', 'project 3', 'project 4', 'project 5', 'project 6', 'new project 7',];
+
+    const names = ['project 1', 'project 2', 'project 3', 'project 4', 'project 5', 'project 6', 'new project 7',];
     const classes = useStyles();
     const [projectName, setProjectName] = useState([]);
     const [openissueform, setissueOpen] = useState('none');
@@ -103,7 +119,7 @@ const IssueForm = (props) => {
    
     useEffect(()=> {
       retrieveIssues();
-      retrieveProject();
+     // retrieveProject();
     }, []);
 
     const initialIssue = {
@@ -220,7 +236,7 @@ const IssueForm = (props) => {
                     <MenuItem value="" disabled>
                         Your Project Name
                 </MenuItem>
-                    {names.map((name) => (
+                    {props.names.map((name) => (
                         <MenuItem
                          key={name} 
                          value={name} 
