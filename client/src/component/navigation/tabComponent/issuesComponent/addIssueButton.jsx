@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Button, makeStyles, TextField, FormControl, Select, Input, MenuItem, useTheme, Box,  } from "@material-ui/core";
+import { Button, makeStyles, TextField, FormControl, Select, Input, MenuItem, useTheme, Box, Paper,  } from "@material-ui/core";
 import AddIcon from '@material-ui/icons/Add';
 import "./issues.css";
 import IssueDataService from "../../../../services/IssueService";
 import ProjectDataService from "../../../../services/projectService";
+import e from "express";
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -46,6 +47,21 @@ const useStyles = makeStyles((theme) => ({
     },
     previewField: {
     },
+  button: {
+    margin: theme.spacing(1),
+  },
+  paper: {
+    width: "60%",
+    marginLeft: "20%",
+    marginRight: "20%",
+
+  },
+  controllbtn: {
+    right: "2rem",
+    width: "40%",
+    marginLeft: "60%",
+
+  }
 }));
 
 function getStyles(name, projectName, theme) {
@@ -56,13 +72,47 @@ function getStyles(name, projectName, theme) {
     };
 }
 const IssueForm = (props) => {
-    return (
+    const classes = useStyles();
 
+
+  const deleteIssue = (event) => {
+    console.log(event.target);
+    // IssueDataService.remove(props.issueFormInfo.id)
+    //   .then(response => {
+    //     console.log(response.data);
+    //   }).catch(e => {
+    //     console.log(e);
+    //   });
+  };
+
+    return (
+        <Paper>
         <div className="leftaligning">
             <h4>{props.nameProject}</h4>
             <h4>{props.sumariesIssue}</h4>
             <p> {props.descriptionsIssue} </p>
         </div>
+        <div className={classes.controllbtn}>
+          <Button
+            className={classes.button}
+            variant="contained"
+            color="primary"
+          >
+            {" "}
+            Update
+          </Button>
+          <Button
+            className={classes.button}
+            variant="outlined"
+            color="secondary"
+            onClick= {deleteIssue}
+            name={props.sumariesIssue}
+          >
+            {" "}
+            Delete
+          </Button>
+        </div>
+        </Paper>
     );
 }
 
@@ -326,6 +376,8 @@ const IssueForm = (props) => {
                   nameProject={list.nameProject}
                   sumariesIssue={list.sumariesIssue}
                   descriptionsIssue={list.descriptionsIssue}
+                  issueFormInfo={issueFormInfo}
+
                 />
               </div>
             );
