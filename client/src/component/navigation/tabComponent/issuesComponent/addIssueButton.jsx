@@ -4,7 +4,6 @@ import AddIcon from '@material-ui/icons/Add';
 import "./issues.css";
 import IssueDataService from "../../../../services/IssueService";
 import ProjectDataService from "../../../../services/projectService";
-import e from "express";
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -72,18 +71,8 @@ function getStyles(name, projectName, theme) {
     };
 }
 const IssueForm = (props) => {
-    const classes = useStyles();
+    const classes = useStyles()
 
-
-  const deleteIssue = (event) => {
-    console.log(event.target);
-    // IssueDataService.remove(props.issueFormInfo.id)
-    //   .then(response => {
-    //     console.log(response.data);
-    //   }).catch(e => {
-    //     console.log(e);
-    //   });
-  };
 
     return (
         <Paper>
@@ -103,10 +92,10 @@ const IssueForm = (props) => {
           </Button>
           <Button
             className={classes.button}
+           
             variant="outlined"
             color="secondary"
-            onClick= {deleteIssue}
-            name={props.sumariesIssue}
+            onClick={props.deleteIssue}
           >
             {" "}
             Delete
@@ -166,14 +155,18 @@ const IssueForm = (props) => {
       return [...prevList, newNode];
     });
     };
-   
+    const deleteIssuenode = (deletenode) => {
+      setListIssue(listIssue.filter(node => {
+        return node.id !== deletenode.id;
+      }));
+    };
     useEffect(()=> {
       retrieveIssues();
      // retrieveProject();
     }, []);
 
     const initialIssue = {
-    id: null,
+    id: '',
     nameProject: "",
     sumariesIssue: "",
     descriptionsIssue: "",
@@ -186,6 +179,7 @@ const IssueForm = (props) => {
    
   const saveIssue = () => {
         var data = {
+          id:issueFormInfo.id,
           nameProject: issueFormInfo.nameProject,
           sumariesIssue:issueFormInfo.sumariesIssue,
           descriptionsIssue:issueFormInfo.descriptionsIssue,
@@ -196,7 +190,7 @@ const IssueForm = (props) => {
         IssueDataService.create(data)
         .then(response => {
             setIssueInfo({
-                //id: response.data.id,
+                id: response.data.id,
                 nameProject:response.data.nameProject,
                 descriptionsIssue:response.data.descriptionsIssue,
                 sumariesIssue:response.data.sumariesIssue,
@@ -213,7 +207,19 @@ const IssueForm = (props) => {
       
     };
 
+  const deleteIssue = () => {
 
+    // console.log(event.target);
+    console.log(issueFormInfo.sumariesIssue);
+    // deleteIssuenode(issueFormInfo.sumariesIssue)
+    IssueDataService.remove(issueFormInfo.sumariesIssue)
+    .then(response => {
+      console.log(response.data);
+      deleteIssuenode(issueFormInfo)
+    }).catch(e => {
+      console.log(e);
+    });
+  };
     
     const retrieveIssues = ()=> {
       IssueDataService.getAll()
@@ -286,7 +292,7 @@ const IssueForm = (props) => {
                     <MenuItem value="" disabled>
                         Your Project Name
                 </MenuItem>
-                    {props.names.map((name) => (
+                    {names.map((name) => (
                         <MenuItem
                          key={name} 
                          value={name} 
@@ -376,8 +382,7 @@ const IssueForm = (props) => {
                   nameProject={list.nameProject}
                   sumariesIssue={list.sumariesIssue}
                   descriptionsIssue={list.descriptionsIssue}
-                  issueFormInfo={issueFormInfo}
-
+                  deleteIssue = {deleteIssue}
                 />
               </div>
             );
