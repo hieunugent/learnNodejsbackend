@@ -73,7 +73,9 @@ function getStyles(name, projectName, theme) {
 const IssueForm = (props) => {
     const classes = useStyles()
 
-
+    const passdeleteIssue=() => {
+      props.deleteIssue(props.id)
+    }
     return (
         <Paper>
         <div className="leftaligning">
@@ -92,10 +94,10 @@ const IssueForm = (props) => {
           </Button>
           <Button
             className={classes.button}
-           
+            
             variant="outlined"
             color="secondary"
-            onClick={props.deleteIssue}
+            onClick={passdeleteIssue}
           >
             {" "}
             Delete
@@ -156,8 +158,8 @@ const IssueForm = (props) => {
     });
     };
     const deleteIssuenode = (deletenode) => {
-      setListIssue(listIssue.filter(node => {
-        return node.id !== deletenode.id;
+      setListIssue(listIssue.filter((node, index) => {
+        return node.id !== deletenode;
       }));
     };
     useEffect(()=> {
@@ -166,7 +168,7 @@ const IssueForm = (props) => {
     }, []);
 
     const initialIssue = {
-    id: '',
+    id:"",
     nameProject: "",
     sumariesIssue: "",
     descriptionsIssue: "",
@@ -207,15 +209,16 @@ const IssueForm = (props) => {
       
     };
 
-  const deleteIssue = () => {
+  const deleteIssue = (props) => {
 
-    // console.log(event.target);
-    console.log(issueFormInfo.sumariesIssue);
+    
+    console.log(props);
+  
+    deleteIssuenode(props)
     // deleteIssuenode(issueFormInfo.sumariesIssue)
-    IssueDataService.remove(issueFormInfo.sumariesIssue)
+    IssueDataService.remove(props)
     .then(response => {
       console.log(response.data);
-      deleteIssuenode(issueFormInfo)
     }).catch(e => {
       console.log(e);
     });
@@ -348,7 +351,7 @@ const IssueForm = (props) => {
                 variant="contained"
                 color="primary"
                 onClick={saveIssue}
-                onChange={addListIssue}
+                // onChange={addListIssue}
               >
                 {" "}
                 Create{" "}
@@ -377,7 +380,7 @@ const IssueForm = (props) => {
             return (
               <div key={`${index}-${list.nameProject}`}>
                 <IssueForm
-                  id={index}
+                  id={list.id}
                   value={list}
                   nameProject={list.nameProject}
                   sumariesIssue={list.sumariesIssue}
