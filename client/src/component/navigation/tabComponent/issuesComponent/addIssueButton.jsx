@@ -201,9 +201,11 @@ const IssueForm = (props) => {
       initialIssue
     );
 
-   const doneIssue = (props)=> {
+   const doneIssue = (props, status)=> {
      console.log(props);
      console.log("done");
+     IssueDataService.update()
+
     //  updateIssuenode(props);
 
    }
