@@ -12,7 +12,8 @@ exports.create= (req, res) => {
         const issue = new Issue ({
             nameProject:req.body.nameProject,
             sumariesIssue: req.body.sumariesIssue,
-            descriptionsIssue: req.body.descriptionsIssue
+            descriptionsIssue: req.body.descriptionsIssue,
+            isDone:req.body.isDone,
         });
 
     // save issue in the database

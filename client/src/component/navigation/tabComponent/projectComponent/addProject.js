@@ -23,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 const ProjectFrom =(props) => {
     const classes = useStyles();
+    const passdeleteProject = ()=> {
+      props.deleteProject(props.id)
+    }
     return (
       <Paper className={classes.paper}>
         <div className="leftaligning">
@@ -42,6 +45,7 @@ const ProjectFrom =(props) => {
             className={classes.button}
             variant="outlined"
             color="secondary"
+            onClick={passdeleteProject}
           >
             {" "}
             Delete
@@ -54,6 +58,11 @@ const ProjectFrom =(props) => {
 export default function Project(props) {
    
     // const [listProject, setListProject] = useState([]);
+
+
+
+
+
        
     useEffect(() => {
       retrieveProject();
@@ -72,6 +81,23 @@ export default function Project(props) {
             return [...preList, newProject];
         });
     };
+    const deleteProjectnode = (deletenode)=> {
+      props.setListProject(props.listProject.filter((node,index)=> {
+        return node.id !==deletenode;
+      }))
+    }
+    const deleteProject =(value) => {
+        console.log(value);
+        deleteProjectnode(value);
+        ProjectDataService.remove(value)
+        .then(response => {
+          console.log(response.data);
+        }).catch(e => {
+          console.log(e);
+        });
+    };
+
+
     const saveProject = () => {
         var data = {
             nameProject:projectFormInfo.nameProject,
@@ -152,7 +178,6 @@ export default function Project(props) {
                     variant="outlined"
                     color="primary"
                     onClick={saveProject}
-
                 >
                     <PostAddIcon fontSize="large" />
                     Submit Project
@@ -166,10 +191,11 @@ export default function Project(props) {
                 return(
                     <div key={`${index}-${list.nameProject}`}>
                         <ProjectFrom
-                            id={index}
+                            id={list.id}
                             value={list}
                             nameProject={list.nameProject}
                             DescriptionProject={list.DescriptionProject}
+                            deleteProject={deleteProject}
                         />
                     </div>
                 );

@@ -99,23 +99,23 @@ return (
     <Container maxWidth="lg" className={classes.container}>
       <Grid container spacing={3}>
         {/* Chart */}
-        <Grid item xs={12} md={4} lg={4}>
-          <Paper className={fixedHeightPaper}  onClick={handleclick}>Project:You track</Paper>
-        </Grid>
-        {/* Recent Deposits */}
-      <Grid item xs={12} md={4} lg={3}>
-          <Paper className={fixedHeightPaper}>Issues per Project</Paper>
-        </Grid>
-        {/* Recent Orders */}
-      <Grid item xs={12} md={4} lg={3}>
-        <Paper className={fixedHeightPaper}>Board Production </Paper>
-        </Grid>
+         <Grid item xs={12} md={4} lg={4}>
+           <Paper className={fixedHeightPaper}  onClick={handleclick}>Project:You track</Paper>
+           </Grid>
+         {/* Recent Deposits */}
+         <Grid item xs={12} md={4} lg={3}>
+           <Paper className={fixedHeightPaper}>Issues per Project</Paper>
+           </Grid>
+          {/* Recent Orders */}
+         <Grid item xs={12} md={4} lg={3}>
+           <Paper className={fixedHeightPaper}>Board Production </Paper>
+           </Grid>
          <Grid item xs={12} md={4} lg={5}>
-        <Paper className={fixedHeightPaper}>Assignee</Paper>
-         </Grid>
-      <Grid item xs={12} md={8} lg={5}>
-        <Paper className={fixedHeightPaper}>Due Date Calender</Paper>
-      </Grid>
+           <Paper className={fixedHeightPaper}>Assignee</Paper>
+           </Grid>
+         <Grid item xs={12} md={8} lg={5}>
+           <Paper className={fixedHeightPaper}>Due Date Calender</Paper>
+           </Grid>
       </Grid>
       
     </Container>

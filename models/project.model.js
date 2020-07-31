@@ -5,6 +5,7 @@ module.exports = (mongoose) => {
       {
         nameProject: String,
         DescriptionProject:String,
+        isDone:Boolean,
       },
       {
         timestamps: true,

@@ -57,8 +57,8 @@ const useStyles = makeStyles((theme) => ({
   },
   controllbtn: {
     right: "2rem",
-    width: "40%",
-    marginLeft: "60%",
+    width: "60%",
+    marginLeft: "40%",
 
   }
 }));
@@ -76,8 +76,11 @@ const IssueForm = (props) => {
     const passdeleteIssue=() => {
       props.deleteIssue(props.id)
     }
+    const passDoneIssue=() => {
+      props.doneIssue(props.id)
+    }
     return (
-        <Paper>
+        <Paper className={classes.paper}>
         <div className="leftaligning">
             <h4>{props.nameProject}</h4>
             <h4>{props.sumariesIssue}</h4>
@@ -91,6 +94,15 @@ const IssueForm = (props) => {
           >
             {" "}
             Update
+          </Button>
+          <Button
+            className={classes.button}
+            variant="contained"
+            color="primary"
+            onClick={passDoneIssue}
+          >
+            {" "}
+            Done
           </Button>
           <Button
             className={classes.button}
@@ -157,11 +169,21 @@ const IssueForm = (props) => {
       return [...prevList, newNode];
     });
     };
+
     const deleteIssuenode = (deletenode) => {
       setListIssue(listIssue.filter((node, index) => {
         return node.id !== deletenode;
       }));
     };
+    const updateIssuenode = (currentNode) => {
+      setListIssue(listIssue.filter(node=>{
+        if(node.id === currentNode){
+          node.isDone= true;
+        }
+        return node.id === currentNode;
+      }));
+    };
+
     useEffect(()=> {
       retrieveIssues();
      // retrieveProject();
@@ -172,19 +194,26 @@ const IssueForm = (props) => {
     nameProject: "",
     sumariesIssue: "",
     descriptionsIssue: "",
+    isDone:false,
     };
 
     const [issueFormInfo, setIssueInfo] = useState(
       initialIssue
     );
 
-   
+   const doneIssue = (props)=> {
+     console.log(props);
+     console.log("done");
+    //  updateIssuenode(props);
+
+   }
   const saveIssue = () => {
         var data = {
           id:issueFormInfo.id,
           nameProject: issueFormInfo.nameProject,
           sumariesIssue:issueFormInfo.sumariesIssue,
           descriptionsIssue:issueFormInfo.descriptionsIssue,
+          isDone:issueFormInfo.isDone,
         };
         console.log(data);
         
@@ -196,6 +225,7 @@ const IssueForm = (props) => {
                 nameProject:response.data.nameProject,
                 descriptionsIssue:response.data.descriptionsIssue,
                 sumariesIssue:response.data.sumariesIssue,
+                isDone:response.data.isDone,
             });
             console.log(response.data);
             
@@ -295,7 +325,7 @@ const IssueForm = (props) => {
                     <MenuItem value="" disabled>
                         Your Project Name
                 </MenuItem>
-                    {names.map((name) => (
+                    {props.names.map((name) => (
                         <MenuItem
                          key={name} 
                          value={name} 
@@ -386,6 +416,7 @@ const IssueForm = (props) => {
                   sumariesIssue={list.sumariesIssue}
                   descriptionsIssue={list.descriptionsIssue}
                   deleteIssue = {deleteIssue}
+                  doneIssue= {doneIssue}
                 />
               </div>
             );
