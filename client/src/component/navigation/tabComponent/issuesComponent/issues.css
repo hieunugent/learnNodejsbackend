@@ -10,3 +10,10 @@
     
 
 }
+.buttonOn{
+    margin: auto;
+}
+.buttonOff{
+    margin: auto;
+    display: none;
+}

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
+import clsx from 'clsx';
 import { Button, makeStyles, TextField, FormControl, Select, Input, MenuItem, useTheme, Box, Paper,  } from "@material-ui/core";
 import AddIcon from '@material-ui/icons/Add';
 import "./issues.css";
 import IssueDataService from "../../../../services/IssueService";
-import ProjectDataService from "../../../../services/projectService";
+// import ProjectDataService from "../../../../services/projectService";
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -71,13 +72,17 @@ function getStyles(name, projectName, theme) {
     };
 }
 const IssueForm = (props) => {
-    const classes = useStyles()
-
+    const classes = useStyles();
+    
     const passdeleteIssue=() => {
       props.deleteIssue(props.id)
     }
     const passDoneIssue=() => {
-      props.doneIssue(props.id)
+      props.doneIssue(props, true)
+
+    }
+    const isdoneyet=() => {
+      return props.isDone ? "buttonOff" : "buttonOn";
     }
     return (
         <Paper className={classes.paper}>
@@ -95,18 +100,20 @@ const IssueForm = (props) => {
             {" "}
             Update
           </Button>
-          <Button
-            className={classes.button}
-            variant="contained"
-            color="primary"
-            onClick={passDoneIssue}
-          >
-            {" "}
+          <div className={isdoneyet()}>
+            <Button
+              className={classes.button}
+              variant="contained"
+              color="primary"
+              onClick={passDoneIssue}
+            >
+              {" "}
             Done
           </Button>
+          </div>
+         
           <Button
             className={classes.button}
-            
             variant="outlined"
             color="secondary"
             onClick={passdeleteIssue}
@@ -180,7 +187,7 @@ const IssueForm = (props) => {
         if(node.id === currentNode){
           node.isDone= true;
         }
-        return node.id === currentNode;
+         return node;
       }));
     };
 
@@ -201,14 +208,29 @@ const IssueForm = (props) => {
       initialIssue
     );
 
-   const doneIssue = (props, status)=> {
-     console.log(props);
+   const doneIssue = (props,status ) => {
+     var data = {
+       id: props.id,
+       nameProject: props.nameProject,
+       sumariesIssue: props.sumariesIssue,
+       descriptionsIssue: props.descriptionsIssue,
+       isDone: status,
+     };
+     console.log(data);
      console.log("done");
-     IssueDataService.update()
+     updateIssuenode(data.id);
+     IssueDataService.update(data.id, data)
+       .then(response => {
+         
+         console.log(response.data);
+       })
+       .catch(e => {
+         console.log(e);
+       });
 
-    //  updateIssuenode(props);
+     
 
-   }
+   };
   const saveIssue = () => {
         var data = {
           id:issueFormInfo.id,
@@ -327,7 +349,7 @@ const IssueForm = (props) => {
                     <MenuItem value="" disabled>
                         Your Project Name
                 </MenuItem>
-                    {props.names.map((name) => (
+                    {names.map((name) => (
                         <MenuItem
                          key={name} 
                          value={name} 
@@ -417,6 +439,7 @@ const IssueForm = (props) => {
                   nameProject={list.nameProject}
                   sumariesIssue={list.sumariesIssue}
                   descriptionsIssue={list.descriptionsIssue}
+                  isDone={list.isDone}
                   deleteIssue = {deleteIssue}
                   doneIssue= {doneIssue}
                 />

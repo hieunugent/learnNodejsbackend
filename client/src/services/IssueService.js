@@ -18,14 +18,11 @@ const update = (id, data) => {
 const remove = (id) => {
     return http.delete(`/issues/${id}`);
 };
-
-
-
 export default{
     getAll,
     get,
     create,
-    remove,
     update,
+    remove,
 };
 
