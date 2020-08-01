@@ -11,9 +11,38 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { withStyles } from '@material-ui/core/styles';
-import {  Button } from "@material-ui/core";
 
+import { Button } from "@material-ui/core";
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
+const theme = createMuiTheme({
+    palette: {
+        primary: {
+            light: '#73e8ff',
+            main: '#29b6f6',
+            dark: '#0086c3',
+            contrastText: '#fff',
+        },
+
+    },
+    // overrides: {
+    //     // Name of the component ⚛️ / style sheet
+    //     MuiButton: {
+    //         // Name of the rule
+    //         text: {
+    //             // Some CSS
+    //             background: '#29b6f6',
+    //             borderRadius: 3,
+    //             border: 0,
+    //             color: 'white',
+    //             height: 48,
+    //             padding: '0 30px',
+    //             boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+    //         },
+    //     },
+    // },
+    typography: { useNextVariants: true },
+});
 const StyledMenu = withStyles({
     paper: {
         border: '1px solid #d3d4d5',
@@ -43,6 +72,7 @@ const StyledMenuItem = withStyles((theme) => ({
             },
         },
     },
+
 }))(MenuItem);
 
 
@@ -57,6 +87,7 @@ const StyledMenuItem = withStyles((theme) => ({
 
     return (
         <div>
+            <MuiThemeProvider theme={theme}>
             <Button
                 aria-controls="customized-menu"
                 aria-haspopup="true"
@@ -66,6 +97,7 @@ const StyledMenuItem = withStyles((theme) => ({
              >
                 Account
              </Button>
+            </MuiThemeProvider>
              <StyledMenu
                 id="customized-menu"
                 anchorEl={anchorEl}

@@ -364,7 +364,7 @@ const IssueForm = (props) => {
                     <MenuItem value="" disabled>
                         Your Project Name
                 </MenuItem>
-                    {names.map((name) => (
+                    {props.names.map((name) => (
                         <MenuItem
                          key={name} 
                          value={name} 

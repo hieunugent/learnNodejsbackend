@@ -10,6 +10,7 @@ exports.create = (req, res) => {
     }
     const project = new Project({
         nameProject: req.body.nameProject,
+        DescriptionProject:req.body.DescriptionProject,
     });
 
     project
