@@ -50,6 +50,15 @@ const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(1),
   },
+  buttonOff:{
+    '&>*':{
+      display:"none",
+      disabled: true,
+    
+    },
+   
+
+  },
   paper: {
     width: "60%",
     marginLeft: "20%",
@@ -57,9 +66,11 @@ const useStyles = makeStyles((theme) => ({
 
   },
   controllbtn: {
+  
     right: "2rem",
-    width: "60%",
-    marginLeft: "40%",
+    width: "70%",
+    marginLeft: "30%",
+    
 
   }
 }));
@@ -82,7 +93,7 @@ const IssueForm = (props) => {
 
     }
     const isdoneyet=() => {
-      return props.isDone ? "buttonOff" : "buttonOn";
+      return props.isDone ? "buttonOff": "buttonOn";
     }
     return (
         <Paper className={classes.paper}>
@@ -92,35 +103,39 @@ const IssueForm = (props) => {
             <p> {props.descriptionsIssue} </p>
         </div>
         <div className={classes.controllbtn}>
-          <Button
-            className={classes.button}
-            variant="contained"
-            color="primary"
-          >
-            {" "}
-            Update
-          </Button>
-          <div className={isdoneyet()}>
+       
             <Button
               className={classes.button}
               variant="contained"
               color="primary"
-              onClick={passDoneIssue}
             >
               {" "}
-            Done
+            Update
           </Button>
-          </div>
+        
+       
+            <button
+              className={isdoneyet()}
+              // className={classes.button}
+              variant="contained"
+              color="primary"
+              onClick={passDoneIssue}
+          > 
+              Done      
+          </button>
+    
          
-          <Button
-            className={classes.button}
-            variant="outlined"
-            color="secondary"
-            onClick={passdeleteIssue}
-          >
-            {" "}
+            <Button
+              className={classes.button}
+              variant="outlined"
+              color="secondary"
+              onClick={passdeleteIssue}
+            >
+              {" "}
             Delete
           </Button>
+        
+        
         </div>
         </Paper>
     );
