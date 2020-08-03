@@ -96,32 +96,34 @@ export default function MainMenu(){
  const handleclick=()=> {
    console.log("is clickd");
  }
- useEffect(() => {
-   retrieveIssues();
- }, []);
-  const [listIssue, setListIssue] = useState([]);
-  const initialData = {
-    nameProject:"",
-  }
-  const [projectListIssue, setProjectList] = useState(initialData);
+
+
+  let datas=[];
+  let name=[];
+
   const retrieveIssues = () => {
     IssueDataService.getAll()
       .then(response => {
         // setListIssue(response.data);
         // console.log(response.data);
         response.data.forEach(ele => {
-       
-            setProjectList(ele.nameProject);
-        
+          if (name.indexOf(ele.nameProject) === -1){
+            name.push(ele.nameProject);
+            datas.push(1);
+          }else{
+            var i = name.indexOf(ele.nameProject);
+            datas[i] = datas[i]+ 1;
+          }
         });
 
       }).catch(e => {
         console.log(e);
       });
-    
-
   }; 
-  console.log(projectListIssue);
+  
+  useEffect(() => {
+    retrieveIssues();
+  }, []);
 return (
     <Container maxWidth="lg" className={classes.container}>
       <Grid container spacing={3}>
@@ -129,7 +131,11 @@ return (
          <Grid item xs={12} md={4} lg={4}>
            <Paper className={fixedHeightPaper}  onClick={handleclick}>
            Project:You track 
-           <PieChart/>
+           <PieChart
+           
+             datas = {datas}
+             name = {name}
+           />
            </Paper>
            </Grid>
          {/* Recent Deposits */}

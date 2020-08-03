@@ -179,7 +179,7 @@ const IssueForm = (props) => {
 
 
 
-    // const names = ['project 1', 'project 2', 'project 3', 'project 4', 'project 5', 'project 6', 'new project 7',];
+    const names = ['project 1', 'project 2', 'project 3', 'project 4', 'project 5', 'project 6', 'new project 7',];
     const classes = useStyles();
     const [projectName, setProjectName] = useState([]);
     const [openissueform, setissueOpen] = useState('none');

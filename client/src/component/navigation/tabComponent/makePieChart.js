@@ -1,29 +1,54 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Pie, Doughnut } from "react-chartjs-2";
 
-const state = {
-  labels: ["January", "February", "March", "April", "May"],
-  datasets: [
-    {
-      label: "Rainfall",
-      backgroundColor: ["#B21F00", "#C9DE00", "#2FDE00", "#00A6B4", "#6800B4"],
-      hoverBackgroundColor: [
-        "#501800",
-        "#4B5000",
-        "#175000",
-        "#003350",
-        "#35014F",
-      ],
-      data: [65, 59, 80, 81, 56],
-    },
-  ],
-};
+// const state = {
+//   labels: ["January", "February", "March", "April", "May"],
+//   datasets: [
+//     {
+//       label: "Rainfall",
+//       backgroundColor: ["#B21F00", "#C9DE00", "#2FDE00", "#00A6B4", "#6800B4"],
+//       hoverBackgroundColor: [
+//         "#501800",
+//         "#4B5000",
+//         "#175000",
+//         "#003350",
+//         "#35014F",
+//       ],
+//       data: [65, 59, 80, 81, 56],
+//     },
+//   ],
+// };
 
-export default class PieChart extends React.Component {
-  render() {
-    return (
-      <div>
-        <Pie
+
+
+
+export default function PieChart(props){
+  console.log(props.name);
+  console.log(props.datas);
+  const state = { 
+    labels: props.name,
+    datasets: [
+      {
+        label: "Rainfall",
+        backgroundColor: ["#B21F00", "#C9DE00", "#2FDE00", "#00A6B4", "#6800B4", "#66ffd6", "#ff80ff", "#3333ff","#9933ff"],
+        hoverBackgroundColor: [
+          "#501800",
+          "#4B5000",
+          "#175000",
+          "#003350",
+          "#35014F",
+          "#009e73",
+          "#b300b3",
+          "#000099",
+          "#4d0099",
+        ],
+        data: props.datas,
+      },
+    ],
+  };
+  return (
+    <div>
+      <Pie
           data={state}
           options={{
             title: {
@@ -38,12 +63,12 @@ export default class PieChart extends React.Component {
           }}
         />
 
-        <Doughnut
+        {/* <Doughnut
           data={state}
           options={{
             title: {
               display: true,
-              text: "Average Rainfall per month",
+              text: "Average Issues per Project",
               fontSize: 20,
             },
             legend: {
@@ -51,8 +76,44 @@ export default class PieChart extends React.Component {
               position: "right",
             },
           }}
-        />
+        /> */}
       </div>
-    );
-  }
+  )
 }
+// export default class PieChart extends React.Component {
+//   render() {
+//     return (
+//       <div>
+//         <Pie
+//           data={state}
+//           options={{
+//             title: {
+//               display: true,
+//               text: "Average Issues per Project ",
+//               fontSize: 20,
+//             },
+//             legend: {
+//               display: true,
+//               position: "right",
+//             },
+//           }}
+//         />
+
+//         <Doughnut
+//           data={state}
+//           options={{
+//             title: {
+//               display: true,
+//               text: "Average Rainfall per month",
+//               fontSize: 20,
+//             },
+//             legend: {
+//               display: true,
+//               position: "right",
+//             },
+//           }}
+//         />
+//       </div>
+//     );
+//   }
+// }
