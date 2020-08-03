@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+
 import { makeStyles } from "@material-ui/core/styles";
 //import Box from "@material-ui/core/Box";
 import Container from "@material-ui/core/Container";
@@ -6,7 +7,7 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import clsx from "clsx";
 import PieChart from "./makePieChart";
-
+import IssueDataService from "../../../services/IssueService";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -95,6 +96,32 @@ export default function MainMenu(){
  const handleclick=()=> {
    console.log("is clickd");
  }
+ useEffect(() => {
+   retrieveIssues();
+ }, []);
+  const [listIssue, setListIssue] = useState([]);
+  const initialData = {
+    nameProject:"",
+  }
+  const [projectListIssue, setProjectList] = useState(initialData);
+  const retrieveIssues = () => {
+    IssueDataService.getAll()
+      .then(response => {
+        // setListIssue(response.data);
+        // console.log(response.data);
+        response.data.forEach(ele => {
+       
+            setProjectList(ele.nameProject);
+        
+        });
+
+      }).catch(e => {
+        console.log(e);
+      });
+    
+
+  }; 
+  console.log(projectListIssue);
 return (
     <Container maxWidth="lg" className={classes.container}>
       <Grid container spacing={3}>

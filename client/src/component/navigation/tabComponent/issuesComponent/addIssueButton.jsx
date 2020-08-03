@@ -179,7 +179,7 @@ const IssueForm = (props) => {
 
 
 
-    const names = ['project 1', 'project 2', 'project 3', 'project 4', 'project 5', 'project 6', 'new project 7',];
+    // const names = ['project 1', 'project 2', 'project 3', 'project 4', 'project 5', 'project 6', 'new project 7',];
     const classes = useStyles();
     const [projectName, setProjectName] = useState([]);
     const [openissueform, setissueOpen] = useState('none');
@@ -236,15 +236,11 @@ const IssueForm = (props) => {
      updateIssuenode(data.id);
      IssueDataService.update(data.id, data)
        .then(response => {
-         
          console.log(response.data);
        })
        .catch(e => {
          console.log(e);
        });
-
-     
-
    };
   const saveIssue = () => {
         var data = {
@@ -266,23 +262,18 @@ const IssueForm = (props) => {
                 sumariesIssue:response.data.sumariesIssue,
                 isDone:response.data.isDone,
             });
-            console.log(response.data);
+            // console.log(response.data);
             
         }).catch(e=> {
-            console.log(e);
-            
+            console.log(e);           
         });
       setIssueModify('block');
       setissueOpen('none');
       setIssuepageOn(false);
-      
     };
 
-  const deleteIssue = (props) => {
-
-    
+  const deleteIssue = (props) => {  
     console.log(props);
-  
     deleteIssuenode(props)
     // deleteIssuenode(issueFormInfo.sumariesIssue)
     IssueDataService.remove(props)
@@ -291,13 +282,13 @@ const IssueForm = (props) => {
     }).catch(e => {
       console.log(e);
     });
-  };
-    
+  };   
+
     const retrieveIssues = ()=> {
       IssueDataService.getAll()
       .then(response => {
         setListIssue(response.data);
-        console.log(response.data);
+        // console.log(response.data);
         
       }).catch(e=> {
         console.log(e);
