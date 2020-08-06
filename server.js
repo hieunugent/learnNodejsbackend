@@ -14,9 +14,16 @@ app.use(bodyParser.json());
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
-
+app.use(express.static("public"));
+app.use(session({
+  secret:"Our little secret.",
+  resave: false,
+  saveUninitialized:false}));
+app.use(passport.initialize());
+app.use(passport.session());
 const db = require("./models/index");
+const { session } = require('passport');
+const passport = require('passport');
 db.mongoose
   .connect(process.env.MONGODB_URI || db.url, {
     useNewUrlParser: true,

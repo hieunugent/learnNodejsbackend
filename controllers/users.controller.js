@@ -23,7 +23,7 @@ exports.registrations = (req, res) => {
        }
      );
 };
-exports.logIN = (req, res) => {
+exports.logIn = (req, res) => {
     const user = new User({
       username: req.body.username,
       password: req.body.password,
