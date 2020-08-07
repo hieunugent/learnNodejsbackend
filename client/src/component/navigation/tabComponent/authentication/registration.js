@@ -94,7 +94,7 @@ const Registration = () => {
 
 
 
-                <Button className={classes.margin} variant="outlined" color="primary" > Register </Button>
+                <Button className={classes.margin} variant="outlined" color="primary" onClick="handleRegister" > Register </Button>
         </Paper>
            
         </div>

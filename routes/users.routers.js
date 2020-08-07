@@ -5,9 +5,9 @@ module.exports = (app) => {
      // create a new user
      router.post("/", users.registrations);
      // login 
-     router.get("/", users.logIn);
+     router.post("/", users.logIn);
      //logout
      router.post("/",users.logOut)
 
 
-}
+} 

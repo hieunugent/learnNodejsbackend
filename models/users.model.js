@@ -1,4 +1,5 @@
 module.exports = (mongoose) => {
+  const passportLocalMongoose = require("passport-local-mongoose");
   var schema = mongoose.Schema(
     {
       email: String,
@@ -12,6 +13,7 @@ module.exports = (mongoose) => {
     object.id = _id;
     return object;
   });
+  schema.plugin(passportLocalMongoose);
   const Users = mongoose.model("user", schema);
   return Users;
 };
