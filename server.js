@@ -25,7 +25,7 @@ app.use(passport.session());
 const db = require("./models/index");
 const User = db.users;
 // const { session } = require('passport');
-;
+
 passport.use(User.createStrategy());
 
 passport.serializeUser(User.serializeUser());
