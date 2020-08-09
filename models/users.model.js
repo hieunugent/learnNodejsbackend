@@ -2,7 +2,7 @@ module.exports = (mongoose) => {
   const passportLocalMongoose = require("passport-local-mongoose");
   var schema = mongoose.Schema(
     {
-      email: String,
+      username: String,
       password: String,
       googleId: String,
       secret: String,

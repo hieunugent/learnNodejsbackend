@@ -9,8 +9,8 @@ exports.logOut = (req, res) => {
 };
 exports.registrations = (req, res) => {
      User.register(
-       { username: req.body.username },
-       req.body.password,
+       {username : req.body.username},
+        req.body.password ,  
        function (err, user) {
          if (err) {
            console.log(err);
@@ -25,7 +25,7 @@ exports.registrations = (req, res) => {
 };
 exports.logIn = (req, res) => {
     const user = new User({
-      username: req.body.username,
+      username : req.body.username,
       password: req.body.password,
     });
 

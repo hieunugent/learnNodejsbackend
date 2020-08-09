@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { TextField, Button, makeStyles, FormGroup, FormControlLabel, Checkbox, Paper } from '@material-ui/core';
 import "./authenticate.css"
 import clsx from "clsx";
-
+import UserDataService from "../../../../services/UserService"
+import { response } from 'express';
 const useStyles = makeStyles((theme) => ({
     margin: {
         marginTop: theme.spacing(2),
@@ -41,7 +42,20 @@ const Registration = () => {
             ...state, [event.target.name]: event.target.checked
         });
     };
+    const handleRegister = (event)=> {
+        var data = {
+            username: userInfo.username,
+            password: userInfo.password
+        }
+        UserDataService.create(data)
+        .then(response =>{
+            console.log(response);
+        }).catch(e => {
+            console.log(e);
+        })
+        event.preventDefault()
 
+    }
     return (
     
         <div >
@@ -94,7 +108,7 @@ const Registration = () => {
 
 
 
-                <Button className={classes.margin} variant="outlined" color="primary" onClick="handleRegister" > Register </Button>
+                <Button className={classes.margin} variant="outlined" color="primary" onClick={handleRegister} > Register </Button>
         </Paper>
            
         </div>
