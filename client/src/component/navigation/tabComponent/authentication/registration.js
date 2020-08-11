@@ -31,6 +31,7 @@ const Registration = () => {
     const classes = useStyles();
     const fixedHeightPaper = clsx( classes.fixedHeight);
     const checkboxPaper = clsx(classes.styleCheckbox, classes.inputformatField);
+    const [userInfo, setuserInfo]= useState();
     const [state, setState] = useState({
         male: false,
         female: false,
@@ -42,10 +43,15 @@ const Registration = () => {
             ...state, [event.target.name]: event.target.checked
         });
     };
+    const handleChangeUser=(event)=> {
+        setuserInfo({
+            ...state,[event.target.name]: event.target.value
+        })
+    }
     const handleRegister = (event)=> {
         var data = {
             username: userInfo.username,
-            password: userInfo.password
+            password: userInfo.password,
         }
         // UserDataService.create(data)
         // .then(response =>{
@@ -66,6 +72,8 @@ const Registration = () => {
                     id="standard-basic"
                     label="Last Name"
                     type="text"
+                    name="lastName"
+                    onChange={handleChangeUser}
                 />
                 <br />
                 <TextField
@@ -73,6 +81,9 @@ const Registration = () => {
                     id="standard-basic"
                     label="First Name"
                     type="text"
+                    name="firstName"
+                    
+                    onChange={handleChangeUser}
                 />
                 <br />
                 <TextField
@@ -80,6 +91,8 @@ const Registration = () => {
                     id="standard-basic"
                     label="Email"
                     type="email"
+                    name="email"
+                    onChange={handleChangeUser}
                 />
                 <br />
                 <TextField
@@ -87,6 +100,8 @@ const Registration = () => {
                     id="standard-basic"
                     label="Password"
                     type="password"
+                    name="password"
+                    onChange={handleChangeUser}
                 />
                 <br />
                 <div className={checkboxPaper}>
