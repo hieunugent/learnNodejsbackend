@@ -4,7 +4,6 @@ module.exports = (mongoose) => {
     {
       username: String,
       password: String,
-      googleId: String,
       secret: String,
     }
   );

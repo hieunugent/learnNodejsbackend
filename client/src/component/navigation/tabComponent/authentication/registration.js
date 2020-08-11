@@ -47,13 +47,13 @@ const Registration = () => {
             username: userInfo.username,
             password: userInfo.password
         }
-        UserDataService.create(data)
-        .then(response =>{
-            console.log(response);
-        }).catch(e => {
-            console.log(e);
-        })
-        event.preventDefault()
+        // UserDataService.create(data)
+        // .then(response =>{
+        //     console.log(response);
+        // }).catch(e => {
+        //     console.log(e);
+        // })
+        // event.preventDefault()
 
     }
     return (
